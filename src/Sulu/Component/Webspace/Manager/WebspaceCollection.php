@@ -28,14 +28,14 @@ class WebspaceCollection implements \IteratorAggregate
      *
      * @var array<string, Portal>
      */
-    private $portals;
+    private array $portals = [];
 
     /**
      * The portals of this specific sulu installation, prefiltered by the environment and url.
      *
      * @var array
      */
-    private $portalInformations;
+    private array $portalInformations = [];
 
     /**
      * Contains all the resources, which where used to build this collection.
@@ -43,7 +43,7 @@ class WebspaceCollection implements \IteratorAggregate
      *
      * @var FileResource[]
      */
-    private $resources;
+    private array $resources = [];
 
     /**
      * @param array<string, Webspace> $webspaces
@@ -56,7 +56,7 @@ class WebspaceCollection implements \IteratorAggregate
     /**
      * Adds a new FileResource, which is required to determine if the cache is fresh.
      */
-    public function addResource(FileResource $resource)
+    public function addResource(FileResource $resource): void
     {
         $this->resources[] = $resource;
     }
@@ -78,7 +78,7 @@ class WebspaceCollection implements \IteratorAggregate
      *
      * @return Portal|null
      */
-    public function getPortal($key)
+    public function getPortal(string $key)
     {
         return $this->portals[$key] ?? null;
     }
@@ -91,7 +91,7 @@ class WebspaceCollection implements \IteratorAggregate
      *
      * @return PortalInformation[]
      */
-    public function getPortalInformations($environment, $types = null)
+    public function getPortalInformations(string $environment, ?array $types = null)
     {
         if (!isset($this->portalInformations[$environment])) {
             throw new \InvalidArgumentException(\sprintf(
@@ -117,7 +117,7 @@ class WebspaceCollection implements \IteratorAggregate
      *
      * @return Webspace|null
      */
-    public function getWebspace($key)
+    public function getWebspace(string $key)
     {
         return $this->webspaces[$key] ?? null;
     }
@@ -132,6 +132,9 @@ class WebspaceCollection implements \IteratorAggregate
         return \count($this->webspaces);
     }
 
+    /**
+     * @return \Traversable
+     */
     #[\ReturnTypeWillChange]
     public function getIterator()
     {
@@ -170,7 +173,7 @@ class WebspaceCollection implements \IteratorAggregate
     /**
      * @param array<string, Webspace> $webspaces
      */
-    public function setWebspaces($webspaces)
+    public function setWebspaces(array $webspaces)
     {
         $this->webspaces = $webspaces;
     }
@@ -197,8 +200,10 @@ class WebspaceCollection implements \IteratorAggregate
      * Sets the portals for this collection.
      *
      * @param array<string, Portal> $portals
+     *
+     * @return void
      */
-    public function setPortals($portals)
+    public function setPortals(array $portals)
     {
         $this->portals = $portals;
     }
@@ -207,8 +212,10 @@ class WebspaceCollection implements \IteratorAggregate
      * Sets the portal Information for this collection.
      *
      * @param array $portalInformations
+     *
+     * @return void
      */
-    public function setPortalInformations($portalInformations)
+    public function setPortalInformations(array $portalInformations)
     {
         $this->portalInformations = $portalInformations;
     }

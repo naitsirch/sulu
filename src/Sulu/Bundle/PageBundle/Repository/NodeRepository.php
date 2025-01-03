@@ -269,6 +269,9 @@ class NodeRepository implements NodeRepositoryInterface
         ];
     }
 
+    /**
+     * @param string $webspaceKey
+     */
     public function getWebspaceNode(
         $webspaceKey,
         $languageCode,
@@ -331,7 +334,7 @@ class NodeRepository implements NodeRepositoryInterface
      * }
      */
     private function createWebspaceNode(
-        $webspaceKey,
+        string $webspaceKey,
         $languageCode,
         $depth = 1,
         $excludeGhosts = false

@@ -32,34 +32,31 @@ class WebspaceCollectionBuilder
      *
      * @var Webspace[]
      */
-    private $webspaces;
+    private array $webspaces = [];
 
     /**
      * The portals for the configured path.
      *
      * @var Portal[]
      */
-    private $portals;
+    private array $portals = [];
 
     /**
      * The portal informations for the configured path.
      *
      * @var PortalInformation[][]
      */
-    private $portalInformations;
+    private array $portalInformations = [];
 
     /**
      * @var TypedFormMetadata
      */
     private $typedFormMetadata;
 
-    /**
-     * @param string $path
-     */
     public function __construct(
         private LoaderInterface $loader,
         private ReplacerInterface $urlReplacer,
-        private $path,
+        private string $path,
         private array $availableTemplates
     ) {
     }
